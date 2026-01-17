@@ -19,7 +19,7 @@ function App() {
     explodingShapesRef.current = explodingShapes;
   }, [shapes, explodingShapes]);
 
-  const SHAPE_SIZE = 300; // Size in pixels
+  const SHAPE_SIZE = 20; // Size in viewport width units (vw)
   const shapeTypes = ["circle", "square", "triangle", "star", "heart"];
   const colors = [
     "#FF6B6B",
@@ -33,11 +33,9 @@ function App() {
   ];
 
   const checkOverlap = (x, y, existingShapes) => {
-    // Shapes are 300px and positioned as percentage of viewport
-    // On a 1920px wide screen, 300px = ~15.6% of width
-    // On a 1280px wide screen, 300px = ~23.4% of width
-    // Use 40% as safe minimum distance to ensure no overlap on any screen size
-    const minDistancePercent = 40;
+    // Shapes are now 20vw, so we need at least 20vw distance + some buffer
+    // Use 25% as safe minimum distance to ensure no overlap
+    const minDistancePercent = 25;
 
     for (const shape of existingShapes) {
       const distance = Math.sqrt(
@@ -54,8 +52,10 @@ function App() {
 
   const generatePosition = (existingShapes, maxAttempts = 100) => {
     for (let i = 0; i < maxAttempts; i++) {
-      const x = Math.random() * 70 + 15; // 15-85% (wider range)
-      const y = Math.random() * 60 + 20; // 20-80% (taller range)
+      // Shapes are 20vw wide, so keep them between 10-70% to prevent edge overflow
+      // Vertical range 15-65% to account for shape height
+      const x = Math.random() * 60 + 10; // 10-70%
+      const y = Math.random() * 50 + 15; // 15-65%
       console.log(`Attempt ${i + 1}: Testing position (${x}, ${y})`);
       if (!checkOverlap(x, y, existingShapes)) {
         console.log(`✓ Position (${x}, ${y}) accepted!`);
@@ -65,8 +65,8 @@ function App() {
     // Fallback if no position found
     console.warn(`⚠️ FALLBACK: Could not find non-overlapping position after ${maxAttempts} attempts, using random position anyway`);
     const fallbackPos = {
-      x: Math.random() * 70 + 15,
-      y: Math.random() * 60 + 20,
+      x: Math.random() * 60 + 10,
+      y: Math.random() * 50 + 15,
     };
     console.log(`Fallback position: (${fallbackPos.x}, ${fallbackPos.y})`);
     return fallbackPos;
@@ -214,8 +214,8 @@ function App() {
             style={{
               ...style,
               backgroundColor: shape.color,
-              width: `${SHAPE_SIZE}px`,
-              height: `${SHAPE_SIZE}px`,
+              width: `${SHAPE_SIZE}vw`,
+              height: `${SHAPE_SIZE}vw`,
             }}
             onClick={(e) => handleShapeClick(e, shape.id)}
           />
@@ -228,8 +228,8 @@ function App() {
             style={{
               ...style,
               backgroundColor: shape.color,
-              width: `${SHAPE_SIZE}px`,
-              height: `${SHAPE_SIZE}px`,
+              width: `${SHAPE_SIZE}vw`,
+              height: `${SHAPE_SIZE}vw`,
             }}
             onClick={(e) => handleShapeClick(e, shape.id)}
           />
@@ -242,9 +242,9 @@ function App() {
             style={{
               ...style,
               borderBottomColor: shape.color,
-              borderLeftWidth: `${SHAPE_SIZE / 2}px`,
-              borderRightWidth: `${SHAPE_SIZE / 2}px`,
-              borderBottomWidth: `${SHAPE_SIZE}px`,
+              borderLeftWidth: `${SHAPE_SIZE / 2}vw`,
+              borderRightWidth: `${SHAPE_SIZE / 2}vw`,
+              borderBottomWidth: `${SHAPE_SIZE}vw`,
             }}
             onClick={(e) => handleShapeClick(e, shape.id)}
           />
@@ -257,7 +257,7 @@ function App() {
             style={{
               ...style,
               color: shape.color,
-              fontSize: `${SHAPE_SIZE}px`,
+              fontSize: `${SHAPE_SIZE}vw`,
             }}
             onClick={(e) => handleShapeClick(e, shape.id)}
           >
@@ -272,7 +272,7 @@ function App() {
             style={{
               ...style,
               color: shape.color,
-              fontSize: `${SHAPE_SIZE}px`,
+              fontSize: `${SHAPE_SIZE}vw`,
             }}
             onClick={(e) => handleShapeClick(e, shape.id)}
           >
