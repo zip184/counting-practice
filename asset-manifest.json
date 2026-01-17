@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/counting-practice/static/css/main.100dab6e.css",
-    "main.js": "/counting-practice/static/js/main.d44fe4dc.js",
+    "main.js": "/counting-practice/static/js/main.a71495e1.js",
     "static/js/453.4efa2694.chunk.js": "/counting-practice/static/js/453.4efa2694.chunk.js",
     "index.html": "/counting-practice/index.html",
     "main.100dab6e.css.map": "/counting-practice/static/css/main.100dab6e.css.map",
-    "main.d44fe4dc.js.map": "/counting-practice/static/js/main.d44fe4dc.js.map",
+    "main.a71495e1.js.map": "/counting-practice/static/js/main.a71495e1.js.map",
     "453.4efa2694.chunk.js.map": "/counting-practice/static/js/453.4efa2694.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.100dab6e.css",
-    "static/js/main.d44fe4dc.js"
+    "static/js/main.a71495e1.js"
   ]
 }
