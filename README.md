@@ -1,70 +1,145 @@
-# Getting Started with Create React App
+# Kids Counting App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An interactive counting application for young children, built with React. Kids click on colorful shapes that explode with satisfying sound effects, helping them learn to count from 1 to 3.
 
-## Available Scripts
+![React](https://img.shields.io/badge/React-19.2.3-blue)
+![Create React App](https://img.shields.io/badge/Create%20React%20App-5.0.1-green)
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- 🎨 **Colorful Shapes** - Circles, squares, triangles, stars, and hearts in vibrant colors
+- 🎵 **Sound Effects** - Explosion sounds and number speech on each click
+- ⌨️ **Keyboard Support** - Press any key to count automatically
+- 🎉 **Celebration Animation** - Number grows and animates when counting is complete
+- 🔄 **Smart Collision Detection** - Shapes never overlap, ensuring clear visibility
+- 📱 **Responsive Design** - Works on all screen sizes
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting Started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+- Node.js (v14 or higher)
+- npm or yarn
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installation
 
-### `npm run build`
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd counting
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Install dependencies:
+```bash
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Start the development server:
+```bash
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The app will open in your browser at [http://localhost:3000](http://localhost:3000)
 
-### `npm run eject`
+## How to Use
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### For Kids
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Click on shapes** - Click any colorful shape to make it explode and count up
+2. **Press any key** - Alternatively, press any key on the keyboard to automatically click a random shape
+3. **Watch the counter** - The number in the top-left shows your progress (e.g., "2 / 3")
+4. **Celebrate!** - When you've clicked all shapes, the number grows big in the middle of the screen
+5. **Keep going** - Press any key to get new shapes and start counting again
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Control Buttons
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **New Number** - Generate a new set of shapes (1-3 random shapes)
+- **Reset** - Reset the current shapes back to their original positions
 
-## Learn More
+## Technical Details
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Built With
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **React** - UI framework
+- **Web Audio API** - Explosion sound synthesis
+- **Web Speech API** - Text-to-speech for counting
+- **CSS3 Animations** - Shape animations and transitions
 
-### Code Splitting
+### Key Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### Collision Detection
+- Uses Euclidean distance algorithm to prevent shape overlap
+- Minimum 40% distance between shape centers
+- Up to 100 placement attempts before fallback
+- Ensures shapes are always clearly visible and clickable
 
-### Analyzing the Bundle Size
+#### Sound System
+- **Explosion Sound**: Synthesized using Web Audio API with frequency sweep (400Hz → 50Hz) and white noise
+- **Number Speech**: Uses browser's text-to-speech to speak numbers 1-3
+- All audio triggers from user gestures (required for Chrome)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### Animations
+- **Pop-in**: Shapes appear with scale/rotate animation (0.3s)
+- **Explode**: Shapes grow and fade when clicked (0.5s)
+- **Celebrate**: Number grows to 50vh and bounces when complete (0.6s)
 
-### Making a Progressive Web App
+## Browser Compatibility
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- ✅ Chrome/Edge (recommended)
+- ✅ Firefox
+- ✅ Safari
+- ⚠️ Safari on macOS may have speech synthesis volume routing issues
 
-### Advanced Configuration
+## Development
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Available Scripts
 
-### Deployment
+- `npm start` - Run development server with hot reload
+- `npm test` - Run tests in watch mode
+- `npm run build` - Create production build
+- `npm run eject` - Eject from Create React App (⚠️ irreversible)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Project Structure
 
-### `npm run build` fails to minify
+```
+counting/
+├── public/
+│   ├── index.html
+│   └── ...
+├── src/
+│   ├── App.js          # Main application component
+│   ├── App.css         # Styles and animations
+│   ├── audioUtils.js   # Sound effects and speech
+│   ├── index.js        # Application entry point
+│   └── ...
+├── CLAUDE.md           # Technical documentation for AI assistants
+├── README.md           # This file
+└── package.json
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Key Files
+
+- **[src/App.js](src/App.js)** - Main React component with shape generation, click handling, and collision detection
+- **[src/audioUtils.js](src/audioUtils.js)** - Audio synthesis and speech functions
+- **[src/App.css](src/App.css)** - All styles including animations
+- **[CLAUDE.md](CLAUDE.md)** - Detailed technical documentation
+
+## Known Issues
+
+1. **macOS Speech Synthesis** - On macOS, the browser may report that it's speaking but no audio is heard. This is due to system speech volume routing and is not a code issue. Check System Settings > Accessibility > Spoken Content.
+
+2. **Occasional Overlap** - In rare cases when generating 3 shapes, shapes may slightly overlap if the algorithm exhausts all placement attempts.
+
+## Contributing
+
+This is a personal educational project. Feel free to fork and modify for your own use.
+
+## License
+
+MIT License - feel free to use this for educational purposes.
+
+## Acknowledgments
+
+- Built with [Create React App](https://create-react-app.dev/)
+- Sound effects synthesized with [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+- Speech powered by [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
