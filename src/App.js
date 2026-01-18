@@ -12,6 +12,7 @@ function App() {
   const shapesRef = useRef(shapes);
   const explodingShapesRef = useRef(explodingShapes);
   const handleShapeClickRef = useRef(null);
+  const lastKeyPressTimeRef = useRef(0);
 
   // Keep refs in sync with state
   useEffect(() => {
@@ -54,9 +55,7 @@ function App() {
       // Vertical range 15-65% to account for shape height
       const x = Math.random() * 60 + 10; // 10-70%
       const y = Math.random() * 50 + 15; // 15-65%
-      console.log(`Attempt ${i + 1}: Testing position (${x}, ${y})`);
       if (!checkOverlap(x, y, existingShapes)) {
-        console.log(`✓ Position (${x}, ${y}) accepted!`);
         return { x, y };
       }
     }
@@ -65,18 +64,15 @@ function App() {
       x: Math.random() * 60 + 10,
       y: Math.random() * 50 + 15,
     };
-    console.log(`Fallback position: (${fallbackPos.x}, ${fallbackPos.y})`);
     return fallbackPos;
   };
 
   const generateShapes = () => {
-    const newCount = Math.floor(Math.random() * 3) + 1; // Changed from 5 to 3 max
-    console.log(`\n=== Generating ${newCount} shapes ===`);
+    const newCount = Math.floor(Math.random() * 5) + 1; // Changed from 5 to 3 max
     const newShapes = [];
     const shapeType = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
 
     for (let i = 0; i < newCount; i++) {
-      console.log(`\n--- Shape ${i + 1} of ${newCount} ---`);
       const position = generatePosition(newShapes);
       newShapes.push({
         id: Date.now() + i,
@@ -87,12 +83,6 @@ function App() {
         rotation: Math.random() * 360,
       });
     }
-
-    console.log(`\n=== Final shape positions ===`);
-    newShapes.forEach((shape, idx) => {
-      console.log(`Shape ${idx + 1}: (${shape.x}, ${shape.y})`);
-    });
-    console.log(`===========================\n`);
 
     setTotalCount(newCount);
     setClickedCount(0);
@@ -139,6 +129,18 @@ function App() {
       if (e.code === "Space" || e.key === " ") {
         e.preventDefault();
       }
+
+      // Debounce: Check if 2 seconds have passed since last key press
+      const now = Date.now();
+      const timeSinceLastPress = now - lastKeyPressTimeRef.current;
+
+      if (timeSinceLastPress < 800) {
+        // Less than 2 seconds - ignore this key press
+        return;
+      }
+
+      // Update the last key press time
+      lastKeyPressTimeRef.current = now;
 
       // Use refs to get current state without causing re-renders
       const unclickedShapes = shapesRef.current.filter(
@@ -283,10 +285,21 @@ function App() {
 
   const isComplete = clickedCount === totalCount && totalCount > 0;
 
+  // Get the current shape type for display
+  const currentShapeType = shapes.length > 0 ? shapes[0].type : "";
+  const shapeName =
+    currentShapeType.charAt(0).toUpperCase() + currentShapeType.slice(1);
+
   return (
     <div className="App">
       <div className={`number-display ${isComplete ? "complete" : ""}`}>
-        {clickedCount}
+        {totalCount > 0 && (
+          <>
+            {isComplete
+              ? clickedCount
+              : `Count the ${shapeName}s ${clickedCount > 0 ? clickedCount : ""}`}
+          </>
+        )}
       </div>
       <div className="button-container">
         <button className="control-button" onClick={handleNewNumber}>
