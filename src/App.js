@@ -41,9 +41,7 @@ function App() {
       const distance = Math.sqrt(
         Math.pow(x - shape.x, 2) + Math.pow(y - shape.y, 2),
       );
-      console.log(`Checking distance between (${x}, ${y}) and (${shape.x}, ${shape.y}): ${distance} (min: ${minDistancePercent})`);
       if (distance < minDistancePercent) {
-        console.log(`OVERLAP DETECTED! Distance ${distance} < ${minDistancePercent}`);
         return true;
       }
     }
@@ -63,7 +61,6 @@ function App() {
       }
     }
     // Fallback if no position found
-    console.warn(`⚠️ FALLBACK: Could not find non-overlapping position after ${maxAttempts} attempts, using random position anyway`);
     const fallbackPos = {
       x: Math.random() * 60 + 10,
       y: Math.random() * 50 + 15,
