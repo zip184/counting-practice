@@ -1,0 +1,21 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Purple gradient background matching app -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9333ea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#581c87;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+
+  <!-- Large colorful star -->
+  <text x="600" y="380" font-size="280" text-anchor="middle" fill="#fbbf24">★</text>
+
+  <!-- Title -->
+  <text x="600" y="500" font-size="56" font-weight="bold" text-anchor="middle" fill="white" font-family="system-ui, -apple-system, sans-serif">Counting Practice</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="560" font-size="32" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-family="system-ui, -apple-system, sans-serif">Fun Learning Game for Kids</text>
+</svg>
